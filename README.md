@@ -1,7 +1,6 @@
 # SecureSched-AI: Security-Aware, AI-Augmented CPU Scheduling
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Scikit-Learn](https://img.shields.io/badge/Model-Isolation%20Forest-orange.svg?logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
 [![Dataset](https://img.shields.io/badge/Data-Alibaba%20Cluster%20Trace-red.svg)](https://github.com/alibaba/clusterdata)
 
@@ -27,7 +26,6 @@
   - [Running the Pipeline](#running-the-pipeline)
   - [Running with Custom Parameters](#running-with-custom-parameters)
 - [Core Modules Breakdown](#core-modules-breakdown)
-- [License](#license)
 
 ---
 
@@ -261,9 +259,3 @@ You can adjust experiment parameters in [`src/utils/config.py`](file:///c:/Users
 | **Evaluation Suite** | [`src/evaluation/experiments.py`](file:///c:/Users/Saumya/SecureSched_Research/src/evaluation/experiments.py) | `run_experiment_matrix()` | Iterates through attack matrix, records metrics, and produces comparison figures. |
 | **Metrics** | [`src/evaluation/metrics.py`](file:///c:/Users/Saumya/SecureSched_Research/src/evaluation/metrics.py) | `calculate_metrics()` | Computes Average Waiting Time, Turnaround Time, and Jain's Fairness Index. |
 | **Data Ingestion** | [`src/processing/preprocess_alibaba.py`](file:///c:/Users/Saumya/SecureSched_Research/src/processing/preprocess_alibaba.py) | `preprocess_data()` | Cleans raw Alibaba trace data, samples valid instances, and synthesizes baseline features. |
-
----
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
