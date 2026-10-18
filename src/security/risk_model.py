@@ -7,7 +7,7 @@ class RiskScoreModel:
         self.model = IsolationForest(contamination=contamination, random_state=random_state)
         
     def fit(self, df_clean):
-        features = df_clean[['declared_burst', 'syscall_rate']]
+        features = df_clean[['declared_burst', 'syscall_rate']].values
         self.model.fit(features)
         
     def predict_risk(self, declared_burst, syscall_rate):
