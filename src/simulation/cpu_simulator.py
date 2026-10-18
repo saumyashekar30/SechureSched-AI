@@ -4,7 +4,7 @@ from src.schedulers.sjf import schedule_sjf
 from src.schedulers.round_robin import schedule_rr
 from src.schedulers.secure_scheduler import schedule_secure
 
-def run_simulation(df_workload, policy="SecureSched", risk_model=None, rr_quantum=5.0, penalty_lambda=50.0):
+def run_simulation(df_workload, policy="SecureSched", risk_model=None, rr_quantum=5.0, penalty_lambda=50.0, ppo_scheduler=None):
     processes = df_workload.copy().to_dict('records')
     for p in processes:
         p['remaining_time'] = p['burst_time']
@@ -31,6 +31,12 @@ def run_simulation(df_workload, policy="SecureSched", risk_model=None, rr_quantu
             elif policy == "SecureSched":
                 p = schedule_secure(ready_queue, risk_model, penalty_lambda)
                 exec_slice = p['remaining_time']
+            elif policy == "PPO":
+                if ppo_scheduler is None:
+                    raise ValueError("A trained ppo_scheduler instance must be provided when policy='PPO'.")
+                return ppo_scheduler.schedule(df_workload)
+            else:
+                raise ValueError(f"Unknown scheduling policy: '{policy}'. Available policies: FCFS, SJF, RR, SecureSched, PPO")
 
             start_time = max(current_time, p['arrival_time'])
             if p['first_cpu_time'] is None:
