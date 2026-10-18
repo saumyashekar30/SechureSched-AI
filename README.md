@@ -259,3 +259,22 @@ You can adjust experiment parameters in [`src/utils/config.py`](file:///c:/Users
 | **Evaluation Suite** | [`src/evaluation/experiments.py`](file:///c:/Users/Saumya/SecureSched_Research/src/evaluation/experiments.py) | `run_experiment_matrix()` | Iterates through attack matrix, records metrics, and produces comparison figures. |
 | **Metrics** | [`src/evaluation/metrics.py`](file:///c:/Users/Saumya/SecureSched_Research/src/evaluation/metrics.py) | `calculate_metrics()` | Computes Average Waiting Time, Turnaround Time, and Jain's Fairness Index. |
 | **Data Ingestion** | [`src/processing/preprocess_alibaba.py`](file:///c:/Users/Saumya/SecureSched_Research/src/processing/preprocess_alibaba.py) | `preprocess_data()` | Cleans raw Alibaba trace data, samples valid instances, and synthesizes baseline features. |
+
+---
+
+## PPO Scheduler (Deep Reinforcement Learning extension)
+
+A Maskable PPO (Stable-Baselines3 / sb3-contrib) scheduling policy is available as an **additional** method next to
+FCFS, SJF, Round Robin and SecureSched. It reuses the Isolation-Forest risk score as an observation and does not
+change any existing module or result (`results/raw_results.csv` is untouched; PPO output goes to `results/ppo/`).
+
+```bash
+pip install -r requirements-ppo.txt                     # optional extra dependencies
+python -m pytest tests -q                               # environment / integration tests
+python -m src.ppo.train --seed 42 --out-dir results/ppo/models/seed_42   # repeat for 43, 44
+python -m src.ppo.evaluate                              # tables + plots in results/ppo/
+```
+
+Measured outcome (held-out workloads, 3 training seeds): PPO beats FCFS/SJF/RR under attack but does **not**
+outperform the heuristic SecureSched scheduler. MDP formulation, reward, methodology, results and limitations:
+[`docs/PPO.md`](docs/PPO.md).
